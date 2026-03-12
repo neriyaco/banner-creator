@@ -73,7 +73,7 @@ export async function exportToPng(cfg: BannerConfig): Promise<void> {
   const fontStr = `${cfg.fontWeight} ${cfg.fontSize}px "${cfg.fontFamily}", sans-serif`;
   ctx.font = fontStr;
   ctx.textAlign = 'center';
-  ctx.textBaseline = 'middle';
+  ctx.textBaseline = 'alphabetic';
   ctx.fillStyle = cfg.textColor;
 
   if (cfg.letterSpacing !== 0) {
@@ -91,10 +91,16 @@ export async function exportToPng(cfg: BannerConfig): Promise<void> {
   const lines = cfg.text.split('\n');
   const lh = cfg.fontSize * cfg.lineHeight;
   const totalH = lines.length * lh;
+  const blockTop = cfg.height / 2 - totalH / 2;
+
+  // Measure actual glyph bounds so we can shift the alphabetic baseline to the
+  // visual centre of each line slot (em-box midpoint ≠ glyph visual centre).
+  const ref = ctx.measureText('Agהנ');
+  const baselineShift = (ref.actualBoundingBoxAscent - ref.actualBoundingBoxDescent) / 2;
 
   lines.forEach((line, i) => {
-    const y = cfg.height / 2 - totalH / 2 + lh * i + lh / 2;
-    ctx.fillText(line, cfg.width / 2, y);
+    const lineCenter = blockTop + i * lh + lh / 2;
+    ctx.fillText(line, cfg.width / 2, lineCenter + baselineShift);
   });
 
   // Icons (reset shadow)
