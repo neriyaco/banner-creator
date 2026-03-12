@@ -19,6 +19,4 @@ Thumbs.db
 
 # TypeScript build cache
 *.tsbuildinfo
-
-# Generated Vite config artifacts
-vite.config.d.ts
+.tsbuild-node/
