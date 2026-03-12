@@ -260,8 +260,8 @@ export default function IconPanel({ config, onChange }: Props) {
           className="w-full"
         />
         <div className="flex justify-between text-xs text-slate-500 mt-0.5" style={{ direction: 'ltr' }}>
-          <span>edge</span>
-          <span>center</span>
+          <span>{LL.icons.offsetEdge()}</span>
+          <span>{LL.icons.offsetCenter()}</span>
         </div>
       </div>
     </div>

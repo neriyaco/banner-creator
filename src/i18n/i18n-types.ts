@@ -243,6 +243,14 @@ type RootTranslation = {
 		 * מ​י​ק​ו​ם​ ​(​מ​ה​ק​צ​ה​)
 		 */
 		iconOffset: string
+		/**
+		 * ק​צ​ה
+		 */
+		offsetEdge: string
+		/**
+		 * מ​ר​כ​ז
+		 */
+		offsetCenter: string
 		groups: {
 			/**
 			 * ח​ג​י​ג​ה
@@ -583,6 +591,14 @@ export type TranslationFunctions = {
 		 * מיקום (מהקצה)
 		 */
 		iconOffset: () => LocalizedString
+		/**
+		 * קצה
+		 */
+		offsetEdge: () => LocalizedString
+		/**
+		 * מרכז
+		 */
+		offsetCenter: () => LocalizedString
 		groups: {
 			/**
 			 * חגיגה
