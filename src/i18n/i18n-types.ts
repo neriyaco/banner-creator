@@ -239,6 +239,10 @@ type RootTranslation = {
 		 * ג​ו​ד​ל​ ​א​י​י​ק​ו​נ​י​ם
 		 */
 		iconSize: string
+		/**
+		 * מ​י​ק​ו​ם​ ​(​מ​ה​ק​צ​ה​)
+		 */
+		iconOffset: string
 		groups: {
 			/**
 			 * ח​ג​י​ג​ה
@@ -575,6 +579,10 @@ export type TranslationFunctions = {
 		 * גודל אייקונים
 		 */
 		iconSize: () => LocalizedString
+		/**
+		 * מיקום (מהקצה)
+		 */
+		iconOffset: () => LocalizedString
 		groups: {
 			/**
 			 * חגיגה

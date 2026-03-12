@@ -98,11 +98,12 @@ export async function exportToPng(cfg: BannerConfig): Promise<void> {
   ctx.shadowOffsetX = 0;
   ctx.shadowOffsetY = 0;
 
-  const pad = cfg.iconSize * 0.6;
+  const offsetX = (cfg.iconOffset / 100) * cfg.width;
   const iconY = cfg.height / 2;
 
-  await drawIcon(ctx, cfg.rightIcon, cfg.width - pad, iconY, cfg.iconSize, 'right');
-  await drawIcon(ctx, cfg.leftIcon, pad, iconY, cfg.iconSize, 'left');
+  // x is the bounding-box edge so icon centers land at offsetX / (width - offsetX)
+  await drawIcon(ctx, cfg.rightIcon, cfg.width - offsetX + cfg.iconSize / 2, iconY, cfg.iconSize, 'right');
+  await drawIcon(ctx, cfg.leftIcon,  offsetX - cfg.iconSize / 2,              iconY, cfg.iconSize, 'left');
 
   const link = document.createElement('a');
   link.download = 'banner.png';

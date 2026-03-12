@@ -244,6 +244,26 @@ export default function IconPanel({ config, onChange }: Props) {
           className="w-full"
         />
       </div>
+
+      {/* ── Icon offset ── */}
+      <div>
+        <label className="panel-label flex justify-between">
+          <span className="section-title" style={{ marginBottom: 0 }}>{LL.icons.iconOffset()}</span>
+          <span className="text-indigo-400 font-mono">{config.iconOffset}%</span>
+        </label>
+        <input
+          type="range"
+          min={0}
+          max={50}
+          value={config.iconOffset}
+          onChange={(e) => onChange({ iconOffset: Number(e.target.value) })}
+          className="w-full"
+        />
+        <div className="flex justify-between text-xs text-slate-500 mt-0.5" style={{ direction: 'ltr' }}>
+          <span>edge</span>
+          <span>center</span>
+        </div>
+      </div>
     </div>
   );
 }

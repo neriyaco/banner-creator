@@ -37,5 +37,6 @@ export type BannerConfig = {
   leftIcon: string;
   rightIcon: string;
   iconSize: number;
+  iconOffset: number; // 0–50: % of banner width from each edge to icon center
   borderRadius: number;
 };

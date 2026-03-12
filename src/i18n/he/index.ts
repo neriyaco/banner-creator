@@ -67,6 +67,7 @@ const he = {
     noIcon: 'ללא אייקון',
     removeIcon: 'הסר אייקון',
     iconSize: 'גודל אייקונים',
+    iconOffset: 'מיקום (מהקצה)',
     groups: {
       celebration: 'חגיגה',
       stars: 'כוכבים',

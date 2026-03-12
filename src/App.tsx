@@ -51,6 +51,7 @@ const DEFAULT_CONFIG: BannerConfig = {
   leftIcon: '✨',
   rightIcon: '✨',
   iconSize: 72,
+  iconOffset: 5,
   borderRadius: 0,
 };
 

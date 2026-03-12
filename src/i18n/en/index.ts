@@ -67,6 +67,7 @@ const en: Translation = {
     noIcon: 'No Icon',
     removeIcon: 'Remove Icon',
     iconSize: 'Icon Size',
+    iconOffset: 'Offset from Edge',
     groups: {
       celebration: 'Celebration',
       stars: 'Stars',
