@@ -1,0 +1,90 @@
+@import "tailwindcss";
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Heebo', 'Segoe UI', 'Arial', sans-serif;
+    direction: rtl;
+    background-color: #0f172a;
+    color: #f1f5f9;
+  }
+
+  input[type='range'] {
+    accent-color: #6366f1;
+  }
+
+  input[type='color'] {
+    cursor: pointer;
+    border: none;
+    padding: 0;
+    background: transparent;
+  }
+
+  select {
+    direction: rtl;
+  }
+}
+
+@layer utilities {
+  .ltr {
+    direction: ltr;
+  }
+
+  .panel-label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #94a3b8;
+    margin-bottom: 0.375rem;
+    letter-spacing: 0.05em;
+  }
+
+  .control-input {
+    width: 100%;
+    background-color: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 0.375rem;
+    color: #f1f5f9;
+    padding: 0.375rem 0.5rem;
+    font-size: 0.875rem;
+    outline: none;
+    transition: border-color 0.15s;
+  }
+
+  .control-input:focus {
+    border-color: #6366f1;
+  }
+
+  .tab-btn {
+    flex: 1;
+    padding: 0.5rem 0.25rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    border-radius: 0.375rem;
+    transition: background-color 0.15s, color 0.15s;
+    color: #94a3b8;
+    cursor: pointer;
+  }
+
+  .tab-btn:hover {
+    color: #f1f5f9;
+    background-color: #1e293b;
+  }
+
+  .tab-btn-active {
+    background-color: #6366f1;
+    color: #ffffff;
+  }
+
+  .section-title {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #64748b;
+    margin-bottom: 0.75rem;
+  }
+}
