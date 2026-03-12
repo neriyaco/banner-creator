@@ -26,13 +26,16 @@ function IconPreview({ value, size = 28 }: { value: string; size?: number }) {
 // ── emoji icon data ─────────────────────────────────────────────────────────
 
 const ICON_EMOJI_GROUPS = [
-  { key: 'celebration' as const, icons: ['🎉','🎊','🎈','🎁','🥂','🍾','🎂','🕯️','🎆','🎇'] },
-  { key: 'stars'       as const, icons: ['⭐','🌟','✨','💫','🌙','☀️','🌈','❄️','⚡','🌊'] },
-  { key: 'hearts'      as const, icons: ['❤️','💙','💚','💛','🧡','💜','🖤','🤍','💖','💝'] },
-  { key: 'nature'      as const, icons: ['🌸','🌺','🌻','🌹','🍀','🌿','🦋','🐝','🌱','🍃'] },
-  { key: 'symbols'     as const, icons: ['👑','🔥','💎','🏆','🎵','🎶','🎯','🎨','⚜️','🔑'] },
-  { key: 'flag'        as const, icons: ['✡️','🕎','📖','🕊️','🌿','🍇','🫒','🌾','🏺','🔯'] },
-  { key: 'smileys'     as const, icons: ['😊','🥳','😍','🤩','😎','🦁','🦅','🦄','🐉','🦊'] },
+  {
+    key: 'celebration' as const,
+    icons: ['🎉', '🎊', '🎈', '🎁', '🥂', '🍾', '🎂', '🕯️', '🎆', '🎇'],
+  },
+  { key: 'stars' as const, icons: ['⭐', '🌟', '✨', '💫', '🌙', '☀️', '🌈', '❄️', '⚡', '🌊'] },
+  { key: 'hearts' as const, icons: ['❤️', '💙', '💚', '💛', '🧡', '💜', '🖤', '🤍', '💖', '💝'] },
+  { key: 'nature' as const, icons: ['🌸', '🌺', '🌻', '🌹', '🍀', '🌿', '🦋', '🐝', '🌱', '🍃'] },
+  { key: 'symbols' as const, icons: ['👑', '🔥', '💎', '🏆', '🎵', '🎶', '🎯', '🎨', '⚜️', '🔑'] },
+  { key: 'flag' as const, icons: ['✡️', '🕎', '📖', '🕊️', '🌿', '🍇', '🫒', '🌾', '🏺', '🔯'] },
+  { key: 'smileys' as const, icons: ['😊', '🥳', '😍', '🤩', '😎', '🦁', '🦅', '🦄', '🐉', '🦊'] },
 ];
 
 // ── SideSelector ───────────────────────────────────────────────────────────
@@ -56,7 +59,9 @@ function SideSelector({ label, value, onSelect, onClear }: SideSelectorProps) {
   return (
     <div className="p-3 rounded-lg bg-slate-800 border border-slate-700">
       <div className="flex items-center justify-between mb-3">
-        <span className="section-title" style={{ marginBottom: 0 }}>{label}</span>
+        <span className="section-title" style={{ marginBottom: 0 }}>
+          {label}
+        </span>
         <div className="flex items-center gap-2">
           {value ? (
             <>
@@ -98,9 +103,7 @@ function SideSelector({ label, value, onSelect, onClear }: SideSelectorProps) {
             key={icon}
             onClick={() => onSelect(icon)}
             className={`text-xl flex items-center justify-center h-9 rounded transition-colors ${
-              value === icon
-                ? 'bg-indigo-600/40 ring-1 ring-indigo-500'
-                : 'hover:bg-slate-700'
+              value === icon ? 'bg-indigo-600/40 ring-1 ring-indigo-500' : 'hover:bg-slate-700'
             }`}
           >
             {icon}
@@ -138,11 +141,12 @@ export default function IconPanel({ config, onChange }: Props) {
 
   return (
     <div className="flex flex-col gap-5">
-
       {/* ── Uploaded image library ── */}
       <div>
         <div className="flex items-center justify-between mb-2">
-          <span className="section-title" style={{ marginBottom: 0 }}>{LL.icons.customImages()}</span>
+          <span className="section-title" style={{ marginBottom: 0 }}>
+            {LL.icons.customImages()}
+          </span>
           <button
             onClick={() => fileInputRef.current?.click()}
             disabled={uploading}
@@ -232,7 +236,9 @@ export default function IconPanel({ config, onChange }: Props) {
       {/* ── Icon size ── */}
       <div>
         <label className="panel-label flex justify-between">
-          <span className="section-title" style={{ marginBottom: 0 }}>{LL.icons.iconSize()}</span>
+          <span className="section-title" style={{ marginBottom: 0 }}>
+            {LL.icons.iconSize()}
+          </span>
           <span className="text-indigo-400 font-mono">{config.iconSize}px</span>
         </label>
         <input
@@ -248,7 +254,9 @@ export default function IconPanel({ config, onChange }: Props) {
       {/* ── Icon offset ── */}
       <div>
         <label className="panel-label flex justify-between">
-          <span className="section-title" style={{ marginBottom: 0 }}>{LL.icons.iconOffset()}</span>
+          <span className="section-title" style={{ marginBottom: 0 }}>
+            {LL.icons.iconOffset()}
+          </span>
           <span className="text-indigo-400 font-mono">{config.iconOffset}%</span>
         </label>
         <input
@@ -259,7 +267,10 @@ export default function IconPanel({ config, onChange }: Props) {
           onChange={(e) => onChange({ iconOffset: Number(e.target.value) })}
           className="w-full"
         />
-        <div className="flex justify-between text-xs text-slate-500 mt-0.5" style={{ direction: 'ltr' }}>
+        <div
+          className="flex justify-between text-xs text-slate-500 mt-0.5"
+          style={{ direction: 'ltr' }}
+        >
           <span>{LL.icons.offsetEdge()}</span>
           <span>{LL.icons.offsetCenter()}</span>
         </div>

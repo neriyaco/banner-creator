@@ -1,9 +1,7 @@
 import type { BannerConfig } from '../types';
 import { useI18nContext } from '../i18n/i18n-react';
 
-const PRESETS = [
-  { label: 'תת ניק', w: 169, h: 39 },
-];
+const PRESETS = [{ label: 'תת ניק', w: 169, h: 39 }];
 
 interface Props {
   config: BannerConfig;
@@ -26,7 +24,9 @@ function NumInput({
   return (
     <div>
       <label className="panel-label flex justify-between">
-        <span className="section-title" style={{ marginBottom: 0 }}>{label}</span>
+        <span className="section-title" style={{ marginBottom: 0 }}>
+          {label}
+        </span>
         <span className="text-indigo-400 font-mono">{value}px</span>
       </label>
       <input
@@ -94,7 +94,9 @@ export default function SizePanel({ config, onChange }: Props) {
 
       <div>
         <label className="panel-label flex justify-between">
-          <span className="section-title" style={{ marginBottom: 0 }}>{LL.size.borderRadius()}</span>
+          <span className="section-title" style={{ marginBottom: 0 }}>
+            {LL.size.borderRadius()}
+          </span>
           <span className="text-indigo-400 font-mono">{config.borderRadius}px</span>
         </label>
         <input

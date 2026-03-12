@@ -39,9 +39,7 @@ export default function BannerPreview({ config }: Props) {
   const lines = config.text.split('\n');
   const lh = config.fontSize * config.lineHeight;
 
-  const textShadow = config.textShadow
-    ? '2px 3px 10px rgba(0,0,0,0.45)'
-    : undefined;
+  const textShadow = config.textShadow ? '2px 3px 10px rgba(0,0,0,0.45)' : undefined;
 
   return (
     <div ref={containerRef} className="w-full h-full flex items-center justify-center">

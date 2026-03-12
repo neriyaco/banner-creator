@@ -1,4 +1,4 @@
-.# Logs
+# Logs
 logs
 *.log
 npm-debug.log*
@@ -17,5 +17,8 @@ dist/
 .DS_Store
 Thumbs.db
 
-# typescript
-*.tsbuildinfo7
+# TypeScript build cache
+*.tsbuildinfo
+
+# Generated Vite config artifacts
+vite.config.d.ts

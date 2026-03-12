@@ -76,7 +76,6 @@ export default function PresetsPanel({ config, onLoad }: Props) {
 
   return (
     <div className="flex flex-col gap-6">
-
       {/* ── Save current settings ── */}
       <div>
         <span className="section-title">{LL.presets.saveTitle()}</span>
@@ -111,13 +110,12 @@ export default function PresetsPanel({ config, onLoad }: Props) {
         ) : (
           <div className="flex flex-col gap-2">
             {presets.map((preset) => (
-              <div
-                key={preset.id}
-                className="p-3 rounded-lg bg-slate-800 border border-slate-700"
-              >
+              <div key={preset.id} className="p-3 rounded-lg bg-slate-800 border border-slate-700">
                 <div className="mb-2">
                   <p className="text-sm font-semibold text-slate-100 truncate">{preset.name}</p>
-                  <p className="text-xs text-slate-500 mt-0.5">{formatDate(preset.createdAt, LL.presets.dateLocale())}</p>
+                  <p className="text-xs text-slate-500 mt-0.5">
+                    {formatDate(preset.createdAt, LL.presets.dateLocale())}
+                  </p>
                 </div>
 
                 <div className="flex gap-1.5">
@@ -132,9 +130,7 @@ export default function PresetsPanel({ config, onLoad }: Props) {
 
                   {/* Export JSON */}
                   <button
-                    onClick={() =>
-                      downloadPresetJson(preset.name, preset.createdAt, preset.config)
-                    }
+                    onClick={() => downloadPresetJson(preset.name, preset.createdAt, preset.config)}
                     title={LL.presets.exportJson()}
                     className="flex-1 flex items-center justify-center gap-1 text-xs bg-slate-700 hover:bg-slate-600 text-slate-300 py-1.5 rounded transition-colors font-semibold"
                   >
@@ -191,18 +187,17 @@ export default function PresetsPanel({ config, onLoad }: Props) {
         </div>
         <textarea
           value={pasteJson}
-          onChange={(e) => { setPasteJson(e.target.value); setImportError(''); }}
+          onChange={(e) => {
+            setPasteJson(e.target.value);
+            setImportError('');
+          }}
           placeholder={'{\n  "bannerPreset": true,\n  ...\n}'}
           rows={4}
           className="control-input resize-none ltr text-xs font-mono"
         />
 
-        {importError && (
-          <p className="text-xs text-red-400 mt-1.5">{importError}</p>
-        )}
-        {importSuccess && (
-          <p className="text-xs text-green-400 mt-1.5">✓ {importSuccess}</p>
-        )}
+        {importError && <p className="text-xs text-red-400 mt-1.5">{importError}</p>}
+        {importSuccess && <p className="text-xs text-green-400 mt-1.5">✓ {importSuccess}</p>}
 
         <button
           onClick={handlePasteImport}

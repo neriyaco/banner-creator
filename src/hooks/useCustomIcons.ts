@@ -74,7 +74,7 @@ export function useCustomIcons() {
         reader.readAsDataURL(file);
       });
     },
-    [db],
+    [db]
   );
 
   const removeIcon = useCallback(
@@ -82,7 +82,7 @@ export function useCustomIcons() {
       if (db) await dbDelete(db, id);
       setIcons((prev) => prev.filter((i) => i.id !== id));
     },
-    [db],
+    [db]
   );
 
   return { icons, addIcon, removeIcon };

@@ -43,19 +43,24 @@ export async function exportToPng(cfg: BannerConfig): Promise<void> {
     if (g.type === 'linear') {
       // Convert CSS angle (0=top, clockwise) to canvas start/end points
       const rad = (g.angle * Math.PI) / 180;
-      const cx = cfg.width / 2, cy = cfg.height / 2;
+      const cx = cfg.width / 2,
+        cy = cfg.height / 2;
       const len =
-        Math.abs(cfg.width / 2 * Math.sin(rad)) +
-        Math.abs(cfg.height / 2 * Math.cos(rad));
+        Math.abs((cfg.width / 2) * Math.sin(rad)) + Math.abs((cfg.height / 2) * Math.cos(rad));
       grad = ctx.createLinearGradient(
-        cx - Math.sin(rad) * len, cy + Math.cos(rad) * len,
-        cx + Math.sin(rad) * len, cy - Math.cos(rad) * len,
+        cx - Math.sin(rad) * len,
+        cy + Math.cos(rad) * len,
+        cx + Math.sin(rad) * len,
+        cy - Math.cos(rad) * len
       );
     } else {
       grad = ctx.createRadialGradient(
-        cfg.width / 2, cfg.height / 2, 0,
-        cfg.width / 2, cfg.height / 2,
-        Math.max(cfg.width, cfg.height) / 2,
+        cfg.width / 2,
+        cfg.height / 2,
+        0,
+        cfg.width / 2,
+        cfg.height / 2,
+        Math.max(cfg.width, cfg.height) / 2
       );
     }
 
@@ -102,8 +107,15 @@ export async function exportToPng(cfg: BannerConfig): Promise<void> {
   const iconY = cfg.height / 2;
 
   // x is the bounding-box edge so icon centers land at offsetX / (width - offsetX)
-  await drawIcon(ctx, cfg.rightIcon, cfg.width - offsetX + cfg.iconSize / 2, iconY, cfg.iconSize, 'right');
-  await drawIcon(ctx, cfg.leftIcon,  offsetX - cfg.iconSize / 2,              iconY, cfg.iconSize, 'left');
+  await drawIcon(
+    ctx,
+    cfg.rightIcon,
+    cfg.width - offsetX + cfg.iconSize / 2,
+    iconY,
+    cfg.iconSize,
+    'right'
+  );
+  await drawIcon(ctx, cfg.leftIcon, offsetX - cfg.iconSize / 2, iconY, cfg.iconSize, 'left');
 
   const link = document.createElement('a');
   link.download = 'banner.png';
@@ -118,7 +130,7 @@ async function drawIcon(
   x: number,
   y: number,
   size: number,
-  align: 'left' | 'right',
+  align: 'left' | 'right'
 ): Promise<void> {
   if (!value) return;
 
@@ -148,7 +160,11 @@ async function drawIcon(
 
 function roundedRect(
   ctx: CanvasRenderingContext2D,
-  x: number, y: number, w: number, h: number, r: number,
+  x: number,
+  y: number,
+  w: number,
+  h: number,
+  r: number
 ) {
   ctx.beginPath();
   ctx.moveTo(x + r, y);
@@ -207,7 +223,11 @@ export function parsePresetJson(json: string): { config: BannerConfig; name: str
     };
   }
   // Raw BannerConfig — must have at minimum width + height + text
-  if (typeof obj.width === 'number' && typeof obj.height === 'number' && typeof obj.text === 'string') {
+  if (
+    typeof obj.width === 'number' &&
+    typeof obj.height === 'number' &&
+    typeof obj.text === 'string'
+  ) {
     return { config: obj as unknown as BannerConfig, name: 'פריסט מיובא' };
   }
   throw new Error('הקובץ אינו פריסט תקין של יוצר הבאנר');

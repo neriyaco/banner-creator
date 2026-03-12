@@ -73,11 +73,11 @@ function AppContent() {
   }
 
   const TABS = [
-    { id: 'text' as TabId,       label: LL.tabs.text(),       Icon: Type },
-    { id: 'size' as TabId,       label: LL.tabs.size(),       Icon: Maximize2 },
+    { id: 'text' as TabId, label: LL.tabs.text(), Icon: Type },
+    { id: 'size' as TabId, label: LL.tabs.size(), Icon: Maximize2 },
     { id: 'background' as TabId, label: LL.tabs.background(), Icon: Palette },
-    { id: 'icons' as TabId,      label: LL.tabs.icons(),      Icon: Smile },
-    { id: 'presets' as TabId,    label: LL.tabs.presets(),    Icon: Bookmark },
+    { id: 'icons' as TabId, label: LL.tabs.icons(), Icon: Smile },
+    { id: 'presets' as TabId, label: LL.tabs.presets(), Icon: Bookmark },
   ];
 
   function update(partial: Partial<BannerConfig>) {
@@ -110,7 +110,9 @@ function AppContent() {
             style={{ direction: 'ltr' }}
           >
             {(Object.keys(LOCALE_LABELS) as Locales[]).map((l) => (
-              <option key={l} value={l}>{LOCALE_LABELS[l]}</option>
+              <option key={l} value={l}>
+                {LOCALE_LABELS[l]}
+              </option>
             ))}
           </select>
         </div>
@@ -131,11 +133,11 @@ function AppContent() {
 
         {/* Panel content */}
         <div className="flex-1 p-4 overflow-y-auto">
-          {activeTab === 'text'       && <TextPanel config={config} onChange={update} />}
-          {activeTab === 'size'       && <SizePanel config={config} onChange={update} />}
+          {activeTab === 'text' && <TextPanel config={config} onChange={update} />}
+          {activeTab === 'size' && <SizePanel config={config} onChange={update} />}
           {activeTab === 'background' && <BackgroundPanel config={config} onChange={update} />}
-          {activeTab === 'icons'      && <IconPanel config={config} onChange={update} />}
-          {activeTab === 'presets'    && <PresetsPanel config={config} onLoad={setConfig} />}
+          {activeTab === 'icons' && <IconPanel config={config} onChange={update} />}
+          {activeTab === 'presets' && <PresetsPanel config={config} onLoad={setConfig} />}
         </div>
 
         {/* Export button */}

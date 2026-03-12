@@ -25,12 +25,12 @@ export default function TextPanel({ config, onChange }: Props) {
   const { LL } = useI18nContext();
 
   const WEIGHTS = [
-    { label: LL.text.weights.thin(),    value: '300' },
+    { label: LL.text.weights.thin(), value: '300' },
     { label: LL.text.weights.regular(), value: '400' },
-    { label: LL.text.weights.medium(),  value: '600' },
-    { label: LL.text.weights.bold(),    value: '700' },
-    { label: LL.text.weights.black(),   value: '900' },
-  ] satisfies { label: string; value: typeof WEIGHT_VALUES[number] }[];
+    { label: LL.text.weights.medium(), value: '600' },
+    { label: LL.text.weights.bold(), value: '700' },
+    { label: LL.text.weights.black(), value: '900' },
+  ] satisfies { label: string; value: (typeof WEIGHT_VALUES)[number] }[];
 
   return (
     <div className="flex flex-col gap-5">
@@ -65,7 +65,10 @@ export default function TextPanel({ config, onChange }: Props) {
         </select>
         <div
           className="mt-2 p-2 rounded bg-slate-800 text-center text-slate-200 text-sm truncate"
-          style={{ fontFamily: `'${config.fontFamily}', sans-serif`, fontWeight: config.fontWeight }}
+          style={{
+            fontFamily: `'${config.fontFamily}', sans-serif`,
+            fontWeight: config.fontWeight,
+          }}
         >
           אבגדהוזחטי — ABCDEF
         </div>
@@ -95,7 +98,9 @@ export default function TextPanel({ config, onChange }: Props) {
       {/* Font size */}
       <div>
         <label className="panel-label flex justify-between">
-          <span className="section-title" style={{ marginBottom: 0 }}>{LL.text.fontSize()}</span>
+          <span className="section-title" style={{ marginBottom: 0 }}>
+            {LL.text.fontSize()}
+          </span>
           <span className="text-indigo-400 font-mono">{config.fontSize}px</span>
         </label>
         <input
@@ -131,7 +136,9 @@ export default function TextPanel({ config, onChange }: Props) {
       {/* Letter spacing */}
       <div>
         <label className="panel-label flex justify-between">
-          <span className="section-title" style={{ marginBottom: 0 }}>{LL.text.letterSpacing()}</span>
+          <span className="section-title" style={{ marginBottom: 0 }}>
+            {LL.text.letterSpacing()}
+          </span>
           <span className="text-indigo-400 font-mono">{config.letterSpacing}px</span>
         </label>
         <input
@@ -147,7 +154,9 @@ export default function TextPanel({ config, onChange }: Props) {
       {/* Line height */}
       <div>
         <label className="panel-label flex justify-between">
-          <span className="section-title" style={{ marginBottom: 0 }}>{LL.text.lineHeight()}</span>
+          <span className="section-title" style={{ marginBottom: 0 }}>
+            {LL.text.lineHeight()}
+          </span>
           <span className="text-indigo-400 font-mono">{config.lineHeight.toFixed(1)}</span>
         </label>
         <input
@@ -163,7 +172,9 @@ export default function TextPanel({ config, onChange }: Props) {
 
       {/* Text shadow */}
       <div className="flex items-center justify-between">
-        <span className="section-title" style={{ marginBottom: 0 }}>{LL.text.textShadow()}</span>
+        <span className="section-title" style={{ marginBottom: 0 }}>
+          {LL.text.textShadow()}
+        </span>
         <button
           onClick={() => onChange({ textShadow: !config.textShadow })}
           className={`relative w-11 h-6 rounded-full transition-colors ${

@@ -225,7 +225,9 @@ export default function BackgroundPanel({ config, onChange }: Props) {
           {gradientType === 'linear' && (
             <div>
               <label className="panel-label flex justify-between">
-                <span className="section-title" style={{ marginBottom: 0 }}>{LL.background.angle()}</span>
+                <span className="section-title" style={{ marginBottom: 0 }}>
+                  {LL.background.angle()}
+                </span>
                 <span className="text-indigo-400 font-mono">{gradientAngle}°</span>
               </label>
               <input
@@ -288,7 +290,10 @@ export default function BackgroundPanel({ config, onChange }: Props) {
             <span className="section-title">{LL.background.colorStops()}</span>
             <div className="flex flex-col gap-3">
               {sortedStops.map((stop) => (
-                <div key={stop.id} className="flex flex-col gap-1.5 p-2.5 rounded-lg bg-slate-800 border border-slate-700">
+                <div
+                  key={stop.id}
+                  className="flex flex-col gap-1.5 p-2.5 rounded-lg bg-slate-800 border border-slate-700"
+                >
                   <div className="flex items-center gap-2">
                     <input
                       type="color"
@@ -304,7 +309,10 @@ export default function BackgroundPanel({ config, onChange }: Props) {
                     />
                     <button
                       onClick={() => removeStop(stop.id)}
-                      disabled={config.background.type === 'gradient' && config.background.gradient.stops.length <= 2}
+                      disabled={
+                        config.background.type === 'gradient' &&
+                        config.background.gradient.stops.length <= 2
+                      }
                       className="text-slate-500 hover:text-red-400 disabled:opacity-30 disabled:cursor-not-allowed transition-colors p-1"
                     >
                       <Trash2 size={14} />

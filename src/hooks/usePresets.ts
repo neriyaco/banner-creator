@@ -69,7 +69,7 @@ export function usePresets() {
       if (db) await dbPut(db, preset);
       setPresets((prev) => [preset, ...prev]);
     },
-    [db],
+    [db]
   );
 
   const deletePreset = useCallback(
@@ -77,7 +77,7 @@ export function usePresets() {
       if (db) await dbDelete(db, id);
       setPresets((prev) => prev.filter((p) => p.id !== id));
     },
-    [db],
+    [db]
   );
 
   return { presets, savePreset, deletePreset };
