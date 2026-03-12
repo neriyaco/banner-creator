@@ -16,37 +16,36 @@ export function cssBackground(cfg: BannerConfig): CSSProperties {
   return { background: cssGradient(cfg.background.gradient) };
 }
 
-/** Draw the banner onto a canvas and trigger a PNG download. */
-export async function exportToPng(cfg: BannerConfig): Promise<void> {
+/** Draw the banner onto an existing canvas context. Used by preview and export. */
+export async function drawBanner(ctx: CanvasRenderingContext2D, cfg: BannerConfig): Promise<void> {
   await document.fonts.ready;
 
-  const canvas = document.createElement('canvas');
-  canvas.width = cfg.width;
-  canvas.height = cfg.height;
-  const ctx = canvas.getContext('2d')!;
+  const { width, height } = cfg;
+
+  ctx.clearRect(0, 0, width, height);
+  ctx.save();
 
   // Rounded corners clip
   if (cfg.borderRadius > 0) {
-    roundedRect(ctx, 0, 0, cfg.width, cfg.height, cfg.borderRadius);
+    roundedRect(ctx, 0, 0, width, height, cfg.borderRadius);
     ctx.clip();
   }
 
   // Background
   if (cfg.background.type === 'solid') {
     ctx.fillStyle = cfg.background.color;
-    ctx.fillRect(0, 0, cfg.width, cfg.height);
+    ctx.fillRect(0, 0, width, height);
   } else {
     const g = cfg.background.gradient;
     const sorted = [...g.stops].sort((a, b) => a.position - b.position);
 
     let grad: CanvasGradient;
     if (g.type === 'linear') {
-      // Convert CSS angle (0=top, clockwise) to canvas start/end points
       const rad = (g.angle * Math.PI) / 180;
-      const cx = cfg.width / 2,
-        cy = cfg.height / 2;
+      const cx = width / 2,
+        cy = height / 2;
       const len =
-        Math.abs((cfg.width / 2) * Math.sin(rad)) + Math.abs((cfg.height / 2) * Math.cos(rad));
+        Math.abs((width / 2) * Math.sin(rad)) + Math.abs((height / 2) * Math.cos(rad));
       grad = ctx.createLinearGradient(
         cx - Math.sin(rad) * len,
         cy + Math.cos(rad) * len,
@@ -55,23 +54,23 @@ export async function exportToPng(cfg: BannerConfig): Promise<void> {
       );
     } else {
       grad = ctx.createRadialGradient(
-        cfg.width / 2,
-        cfg.height / 2,
+        width / 2,
+        height / 2,
         0,
-        cfg.width / 2,
-        cfg.height / 2,
-        Math.max(cfg.width, cfg.height) / 2
+        width / 2,
+        height / 2,
+        Math.max(width, height) / 2
       );
     }
 
     sorted.forEach((s) => grad.addColorStop(s.position / 100, s.color));
     ctx.fillStyle = grad;
-    ctx.fillRect(0, 0, cfg.width, cfg.height);
+    ctx.fillRect(0, 0, width, height);
   }
 
   // Text
-  const fontStr = `${cfg.fontWeight} ${cfg.fontSize}px "${cfg.fontFamily}", sans-serif`;
-  ctx.font = fontStr;
+  ctx.font = `${cfg.fontWeight} ${cfg.fontSize}px "${cfg.fontFamily}", sans-serif`;
+  ctx.direction = /[\u0590-\u05FF\u0600-\u06FF]/.test(cfg.text) ? 'rtl' : 'ltr';
   ctx.textAlign = 'center';
   ctx.textBaseline = 'alphabetic';
   ctx.fillStyle = cfg.textColor;
@@ -91,37 +90,37 @@ export async function exportToPng(cfg: BannerConfig): Promise<void> {
   const lines = cfg.text.split('\n');
   const lh = cfg.fontSize * cfg.lineHeight;
   const totalH = lines.length * lh;
-  const blockTop = cfg.height / 2 - totalH / 2;
+  const blockTop = height / 2 - totalH / 2;
 
-  // Measure actual glyph bounds so we can shift the alphabetic baseline to the
-  // visual centre of each line slot (em-box midpoint ≠ glyph visual centre).
   const ref = ctx.measureText('Agהנ');
   const baselineShift = (ref.actualBoundingBoxAscent - ref.actualBoundingBoxDescent) / 2;
 
   lines.forEach((line, i) => {
     const lineCenter = blockTop + i * lh + lh / 2;
-    ctx.fillText(line, cfg.width / 2, lineCenter + baselineShift);
+    ctx.fillText(line, width / 2, lineCenter + baselineShift);
   });
 
-  // Icons (reset shadow)
+  // Icons (reset shadow first)
   ctx.shadowColor = 'transparent';
   ctx.shadowBlur = 0;
   ctx.shadowOffsetX = 0;
   ctx.shadowOffsetY = 0;
 
-  const offsetX = (cfg.iconOffset / 100) * cfg.width;
-  const iconY = cfg.height / 2;
+  const offsetX = (cfg.iconOffset / 100) * width;
+  const iconY = height / 2;
 
-  // x is the bounding-box edge so icon centers land at offsetX / (width - offsetX)
-  await drawIcon(
-    ctx,
-    cfg.rightIcon,
-    cfg.width - offsetX + cfg.iconSize / 2,
-    iconY,
-    cfg.iconSize,
-    'right'
-  );
+  await drawIcon(ctx, cfg.rightIcon, width - offsetX + cfg.iconSize / 2, iconY, cfg.iconSize, 'right');
   await drawIcon(ctx, cfg.leftIcon, offsetX - cfg.iconSize / 2, iconY, cfg.iconSize, 'left');
+
+  ctx.restore();
+}
+
+/** Draw the banner onto a new canvas and trigger a PNG download. */
+export async function exportToPng(cfg: BannerConfig): Promise<void> {
+  const canvas = document.createElement('canvas');
+  canvas.width = cfg.width;
+  canvas.height = cfg.height;
+  await drawBanner(canvas.getContext('2d')!, cfg);
 
   const link = document.createElement('a');
   link.download = 'banner.png';
